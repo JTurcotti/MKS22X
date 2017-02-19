@@ -118,19 +118,36 @@ public class KnightBoard {
     }
 
     public static long[] test(int max) {
+	List<String> failures = new ArrayList<>();
+	List<String> needy = new ArrayList<>();
+
 	long[] tests = new long[max];
 	long time = time();
 	for (int size=1; size<=max; size++) {
 	    time = time();
-	    KnightBoard kb = new KnightBoard(size);
-	    boolean solved = kb.solve();
+		boolean solved = false;
+		try {
+	    		KnightBoard kb = new KnightBoard(size);
+	    		solved = kb.solve();
+		} catch (StackOverflowError soe) {
+			System.out.println("Stack memory limit reached at " + size);
+			break;
+		}
 	    long elapsed = time()-time;
-	    if (solved)
+	    if (solved) {
 		System.out.println("solved " + size + " in " + elapsed + "ms");
-	    else
+		if (elapsed > 20) needy.add("size: " + size + "; time: " + elapsed + "ms");
+		}
+	    else {
 		System.out.println("failed " + size + " in " + elapsed + "ms");
+		failures.add("size: " + size + "; time: " + elapsed + "ms");
+		}
 	    tests[size-1] = elapsed;
 	}
+	System.out.println("\n\nCases that took an unusally large amount of time:");
+	for (String needer: needy) System.out.println(needer);
+	System.out.println("\nCases that failed altogether to produce a solution:");
+	for (String failure: failures) System.out.println(failure);
 	return tests;
     }
 
@@ -141,9 +158,3 @@ public class KnightBoard {
     static long time() {return System.currentTimeMillis();}
 }
 
-
-    
-		
-		
-
-    
