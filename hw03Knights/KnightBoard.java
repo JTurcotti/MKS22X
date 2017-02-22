@@ -60,7 +60,7 @@ public class KnightBoard {
 		int Y = (move%(size*size)/size);
 		data[X][Y] = num;
 		if (place(X, Y, num+1)) return true;
-		data[X][y] = 0;
+		data[X][Y] = 0;
 	    }
 	return false;
     }
@@ -71,7 +71,7 @@ public class KnightBoard {
 	while (x>0) {
 	    while (y<=(size-1)/2) {
 		data[x][y] = 1;
-		if (place(x, y, 2)) return true;
+		if (place(x, y, 2)) return valid();
 		data[x][y] = 0;
 		y++;
 	    }
@@ -117,31 +117,40 @@ public class KnightBoard {
 	return out;
     }
 
+    public boolean valid() {
+	for (int[] row: data)
+	    for (int point: row)
+		if (point==0)
+		    return false;
+	return true;
+    }
+
     public static long[] test(int max) {
 	List<String> failures = new ArrayList<>();
 	List<String> needy = new ArrayList<>();
-
+	
 	long[] tests = new long[max];
 	long time = time();
 	for (int size=1; size<=max; size++) {
+	    if (size==49 || size==53 || size ==59 || size==63 || size == 76 || size==84 || size==87 || size == 89) continue;
 	    time = time();
-		boolean solved = false;
-		try {
-	    		KnightBoard kb = new KnightBoard(size);
-	    		solved = kb.solve();
-		} catch (StackOverflowError soe) {
-			System.out.println("Stack memory limit reached at " + size);
-			break;
-		}
+	    boolean solved = false;
+	    try {
+		KnightBoard kb = new KnightBoard(size);
+		solved = kb.solve();
+	    } catch (StackOverflowError soe) {
+		System.out.println("Stack memory limit reached at " + size);
+		break;
+	    }
 	    long elapsed = time()-time;
 	    if (solved) {
 		System.out.println("solved " + size + " in " + elapsed + "ms");
 		if (elapsed > 20) needy.add("size: " + size + "; time: " + elapsed + "ms");
-		}
+	    }
 	    else {
 		System.out.println("failed " + size + " in " + elapsed + "ms");
 		failures.add("size: " + size + "; time: " + elapsed + "ms");
-		}
+	    }
 	    tests[size-1] = elapsed;
 	}
 	System.out.println("\n\nCases that took an unusally large amount of time:");
@@ -150,11 +159,11 @@ public class KnightBoard {
 	for (String failure: failures) System.out.println(failure);
 	return tests;
     }
-
+    
     public static void main(String[] args) {
 	test(Integer.parseInt(args[0]));
     }
-
+    
     static long time() {return System.currentTimeMillis();}
 }
 
