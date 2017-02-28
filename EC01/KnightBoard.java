@@ -3,14 +3,22 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public class KnightBoard {
-    private final int size;
+    private final int rows;
+    private final int cols;
+    private final int base;
     public int[][] data;
     private static int[][] moves = {{1, 2}, {2, 1}, {2, -1}, {1, -2}, {-1, -2}, {-2, -1}, {-2, 1}, {-1, 2}};
 
     
     public KnightBoard(int size) {
-	data = new int[size][size];
-	this.size = size;
+	this(size, size);
+    }
+
+    public KnightBoard(int rows, int cols) {
+	data = new int[rows][cols];
+	this.rows = rows;
+	this.cols = cols;
+	base = Math.max(rows, cols);
     }
 
     public static int[] sort(int[] data) {
@@ -32,7 +40,7 @@ public class KnightBoard {
 	for (int i=0; i<8; i++) {
 	    int X = x+moves[i][0];
 	    int Y = y+moves[i][1];
-	    if (X>=0 && X<size && Y>=0 && Y<size && data[X][Y]==0)
+	    if (X>=0 && X< rows && Y>=0 && Y<cols && data[X][Y]==0)
 		count++;
 	}
 	return count;
@@ -44,20 +52,20 @@ public class KnightBoard {
 	for (int i=0; i<8; i++) {
 	    int X = x+moves[i][0];
 	    int Y = y+moves[i][1];
-	    if (X>=0 && X<size && Y>=0 && Y<size && data[X][Y]==0)
-		outMoves[i] = size*size*countFrom(X, Y)+size*Y+X;
+	    if (X>=0 && X<rows && Y>=0 && Y<cols && data[X][Y]==0)
+		outMoves[i] = base*base*countFrom(X, Y)+base*Y+X;
 	}
 	return(sort(outMoves));
     }
 	
 
     private boolean place(int x, int y, int num) {
-	if (num>size*size) return true;
+	if (num>rows*cols) return true;
 
 	int[] moves = listMoves(x, y);
 	for (int move: moves) if (move!=0) {
-		int X = move%size;
-		int Y = (move%(size*size)/size);
+		int X = move%base;
+		int Y = (move%(base*base)/base);
 		data[X][Y] = num;
 		if (place(X, Y, num+1)) return true;
 		data[X][Y] = 0;
@@ -66,10 +74,10 @@ public class KnightBoard {
     }
 
     public boolean solve() {
-	int x = (size-1)/2;
-	int y = (size-1)/2;
+	int x = (rows-1)/2;
+	int y = (cols-1)/2;
 	while (x>0) {
-	    while (y<=(size-1)/2) {
+	    while (y<=(cols-1)/2) {
 		data[x][y] = 1;
 		if (place(x, y, 2)) return valid();
 		data[x][y] = 0;
@@ -90,12 +98,12 @@ public class KnightBoard {
 
     public String toString() {
 	String out = "";
-	int len = Integer.toString(size*size).length()+1;
-	for (int i=0; i<size*size; i++) {
-	    String dat = Integer.toString(data[i/size][i%size]);
+	int len = Integer.toString(rows*cols).length()+1;
+	for (int i=0; i<rows*cols; i++) {
+	    String dat = Integer.toString(data[i/cols][i%cols]);
 	    while (dat.length()<len) dat = " " + dat;
 	    out+=dat;
-	    if ((i+1)%size==0) out+= "\n";
+	    if ((i+1)%cols==0) out+= "\n";
 	}
 	return out;
     }
