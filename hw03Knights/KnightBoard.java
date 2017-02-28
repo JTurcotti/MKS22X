@@ -79,31 +79,14 @@ public class KnightBoard {
 	}
 	return false;
     }
-    /* Doesnt work yet
-    public boolean solveClosed() {
-	int x1 = (size-1)/2;
-	int y1 = (size-1)/2;
-	int x = x1;
-	int y = y1;
-	while (x>0) {
-	    while (y<=(size-1)/2) {
-		data[x][y] = 1;
-		if (place(x, y, 2) && validKnightMove(x1, y1, x, y)) return true;
-		data[x][y] = 0;
-		y++;
-	    }
-	    y = --x;
-	}
-	return false;
+    public boolean solveFast() {return solve();}
+
+    private boolean validKnightMove(int x1, int y1, int x2, int y2) {
+	int dxy = (x2-x1) * (y2-y1);
+	return dxy==2 || dxy==-2;
     }
 
-    */
-    
-    private boolean validKnightMove(int x1, int y1, int x2, int y2) {
-	int dx = x2-x1;
-	int dy = y2-y1;
-	return Math.abs(dx*dy)==2;
-    }
+	
 
     public String toString() {
 	String out = "";
@@ -132,7 +115,7 @@ public class KnightBoard {
 	long[] tests = new long[max];
 	long time = time();
 	for (int size=1; size<=max; size++) {
-	    if (size==49 || size==53 || size ==59 || size==63 || size == 76 || size==84 || size==87 || size == 89) continue;
+	    //if (size==49 || size==53 || size ==59 || size==63 || size == 76 || size==84 || size==87 || size == 89) continue;
 	    time = time();
 	    boolean solved = false;
 	    try {
