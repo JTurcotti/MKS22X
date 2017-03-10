@@ -6,30 +6,9 @@ public class Quiz2Redux{
      *in the original string.
      */
     public static ArrayList<String> combinations(String str){
-	ArrayList<String>words;
-	String out;
-	
-	out = "";
-	words = new ArrayList<String>();
+	ArrayList<String>words = new ArrayList<String>();
 	help( words , str, 0, "");
-	for (String word: words)
-	    out+=", " + word;
-	System.out.println("[" + out.substring(2) + "]");
-
-	out = "";
-	words = new ArrayList<String>();
-	help2( words , str, 0);
-	for (String word: words)
-	    out+=", " + word;
-	System.out.println("[" + out.substring(2) + "]");
-
-	out = "";
-	words = new ArrayList<String>();
-	helpP( words , str, 0);
-	for (String word: words)
-	    out+=", " + word;
-	System.out.println("[" + out.substring(2) + "]");
-
+	Collections.sort(words);
 	return words;
     }
   
@@ -67,14 +46,10 @@ public class Quiz2Redux{
 
 
     public static void main(String[] args) {
-
-	combinations(args[0]);
-
-	/*
 	List<String> combos = combinations(args[0]);
 	String out = "";
 	for (String combo: combos)
-	    out+=", " + combo;
-	    System.out.println("[" + out.substring(2) + "]");*/
+	    out+=", " + (combo.equals("")? "\u2205": combo);
+	System.out.println("[" + out.substring(2) + "]");
     }
 }
