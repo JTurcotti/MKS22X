@@ -103,7 +103,7 @@ class Maze {
 	    for (Cell queued: currentQueue) {
 		if (animate) {
 		    System.out.println("\033[2J\033[1;1H"+toStringDebug());
-		    wait(20);
+		    wait(20/currentQueue.size());
 		}
 		queued.propogate();
 	    }
