@@ -1,19 +1,6 @@
 import java.util.*;
 import java.io.*;
 
-public class USACO {
-	    
-    public int silver(String filename) {
-	Field grass = new Field(filename);
-	return grass.solve();
-    }
-
-    public int bronze(String filename) {
-	Lake pond = new Lake(filename);
-	return pond.volume();
-    }
-}
-
 class Lake {
     int[][] data;
     int rows, cols, elev, digs;
@@ -86,8 +73,9 @@ class Field {
     }
 
     public Field(String filename) {
+	Scanner in = null;
 	try {
-	    Scanner in = new Scanner(new File(filename));
+	    in = new Scanner(new File(filename));
 	} catch (Exception e) {
 	    return;
 	}
@@ -158,5 +146,19 @@ class Field {
 	    out+="\n";
 	}
 	return out;
+    }
+}
+
+
+public class USACO {
+	    
+    public int silver(String filename) {
+	Field grass = new Field(filename);
+	return grass.solve();
+    }
+
+    public int bronze(String filename) {
+	Lake pond = new Lake(filename);
+	return pond.volume();
     }
 }
