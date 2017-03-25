@@ -25,7 +25,7 @@ public class QueenBoard {
     }
     
     public String toString(int num) {
-	if (num>getCount()) throw new IllegalStateException("too many solutions requested");
+	if (num>getSolutionCount()) throw new IllegalStateException("too many solutions requested");
 	String out = "";
 	for (int i=0; i<num; i++)
 	    out += (longToString(solutions.get(i), size) + "\n");
@@ -36,7 +36,7 @@ public class QueenBoard {
 	return toString(1);
     }
     
-    public int getCount() {
+    public int getSolutionCount() {
 	if (!populated && solutions.size()==0) return -1;
 	return solutions.size();
     }
@@ -106,6 +106,6 @@ public class QueenBoard {
 	
 	time = time();
 	qb.countSolutions();
-	System.out.println(time() - time + "ms to find all " + qb.getCount());
+	System.out.println(time() - time + "ms to find all " + qb.getSolutionCount());
     }
 }
