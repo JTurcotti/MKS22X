@@ -2,7 +2,12 @@ import java.util.Arrays;
 import java.util.Random;
 
 public class Merge {
-     static void copy(int[] from, int[] to) {
+    public static void mergesort(int[] arr) {
+	mergeSortBottom(arr);
+    }
+
+    
+    static void copy(int[] from, int[] to) {
 	for (int i=0; i<from.length; i++)
 	    to[i] = from[i];
     }
@@ -65,8 +70,6 @@ public class Merge {
 	if (i%2==1)
 	    for (int j = 0; j<arr.length; j++)
 		arr[j] = temp[j];
-		
-
     }
 
     static void makePass(int width, int[] from, int[] to) {
@@ -142,9 +145,6 @@ public class Merge {
 
        
     public static void main(String[] args) {
-	System.out.println(new Integer(5).compareTo(new Integer(6)));
-    }
-	/*
 	int num = Integer.parseInt(args[0]);
  	int len = Integer.parseInt(args[1]);
 	Random r = new Random();
@@ -169,8 +169,8 @@ public class Merge {
 		System.out.print("Bottom Up in " + time + "ms ");
 	    else
 		System.out.print("Bottom Up failure ");
-
 	    
+	    /*
 	    copy(test, temp);
 	    time = time();
 	    mergePreserve(temp);
@@ -179,9 +179,9 @@ public class Merge {
 		System.out.print("Preserve in " + time + "ms ");
 	    else
 		System.out.print("Preserve failure ");
-
 	    
-	    /*	    copy(test, temp);
+	    
+	    copy(test, temp);
 	    time = time();
 	    mergeNatural(temp);
 	    time = time() - time;
@@ -189,9 +189,9 @@ public class Merge {
 		System.out.print("Natural in " + time + "ms ");
 	    else
 		System.out.print("Natural failure ");
-	    
+	    */
 	    System.out.print('\n');
+	    
 	}
     }
-*/
 }	    
