@@ -1,17 +1,26 @@
 import java.util.Collection;
 
-public class MyLinkedList<E> { 
+public class MyLinkedList extends GenericLL<Integer>{
+    public MyLinkedList() {
+	super();
+    }
+    public MyLinkedList(Collection<Integer> values) {
+	super(values);
+    }
+}
+
+class GenericLL<E> { 
     Node head;
     int size;
 
     public int size() {return size;}
 
-    public MyLinkedList() {
+    public GenericLL() {
 	head = new Node(null, null, null);
 	clear();
     }
 
-    public MyLinkedList(Collection<? extends E> values) {
+    public GenericLL(Collection<? extends E> values) {
 	this();
 	for (E value: values)
 	    add(value);
@@ -63,20 +72,22 @@ public class MyLinkedList<E> {
     public boolean addAll(Collection<? extends E> C) {
 	for (E e: C)
 	    add(e);
+	return true;
     }
 
     public boolean addAll(int index, Collection<? extends E> C) {
 	int i=index;
 	for (E e: C)
 	    add(i++, e);
+	return true;
     }
 
     public void addFirst(E e) {
-	head.addAfter(e);
+	head.addAfter(new Node(e));
     }
 
     public void addLast(E e) {
-	head.addBefore(e);
+	head.addBefore(new Node(e));
     }
 
     public void clear() {
@@ -86,9 +97,9 @@ public class MyLinkedList<E> {
     }
 
     public Object clone() {
-	MyLinkedList n = new MyLinkedList();
+	GenericLL<E> n = new GenericLL<>();
 	for (Node current = head.next; current!=head; current = current.next)
-	    n.add(current);
+	    n.head.addBefore(current);
 	return n;
     }
 			  
