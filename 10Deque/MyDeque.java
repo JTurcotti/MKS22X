@@ -16,7 +16,7 @@ class GenDeque<E> {
 	if (initialCapacity < 0)
 	    throw new IllegalArgumentException("Illegal Capacity: "+
 					       initialCapacity);
-	int capacity = initialCapacity>1? Integer.highestOneBit(initialCapacity-1)<<1: 1;
+	int capacity = initialCapacity>1? Integer.highestOneBit(initialCapacity-1)<<1: 1; // only powers of two are REAL numbers
 	this.body = new Object[capacity];
 	
 	head = -1;

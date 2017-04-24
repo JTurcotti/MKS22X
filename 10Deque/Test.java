@@ -3,9 +3,9 @@ import java.util.*;
 public class Test {
     public static void main(String[] args) {
 	MyDeque md = new MyDeque();
-	for(int i = 0; i<20; md.addFirst("apple")) {i++;}
+	for(int i = 0; i<32; md.addFirst("apple")) {i++;}
 	System.out.println(" size: " + md.size());
-	for (int i=0; i<100; md.addLast(md.removeFirst())) {i++;}
+	for (int i=0; i<256; md.addLast(md.removeFirst())) {i++;}
 	System.out.println(" size: " + md.size());
 	while (true)
 	    try {
