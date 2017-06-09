@@ -34,6 +34,10 @@ public class MazeSolver {
 	this(filename, false);
     }
 
+    public void solve() {
+	solve(1);
+    }
+    
     public void solve(int style) {
 	initSet();
 	initFrontier(style);
@@ -50,10 +54,6 @@ public class MazeSolver {
 		    maze.maze[r][c] = ' ';
     }
 
-    public void solve(){
-	solve(1);
-    }
-	
     private void initSet() {
 	closed = new ClSet(maze);
 	for (int x = 0; x<maze.maxRows; x++)
@@ -111,10 +111,15 @@ public class MazeSolver {
 	return maze.toString();
     }
 
+    public String toString(int n) {
+	return maze.toString(n);
+    }
+
     public static void main(String[] args) {
 	MazeSolver ms = new MazeSolver(args[1], false);
 	ms.solve(Integer.parseInt(args[0]));
-	System.out.println(ms.maze.toString(0));
+	String ans = (ms.toString());
+
     }
 
     private static void pr(Object s) {

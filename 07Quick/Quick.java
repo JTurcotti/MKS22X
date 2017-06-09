@@ -51,7 +51,8 @@ public class Quick {
 
 	for (int k=0; k<6; k++) {
 	    int[] ary = { 2, 10, 15, 23, 0, 5 };
-	    System.out.println(quickselect(ary, k));
+	    quicksort(ary);
+	    System.out.println(Arrays.toString(ary));
 	}
     }
 }
